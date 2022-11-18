@@ -1,7 +1,7 @@
 /* @flow */
 import { supportsPopups as userAgentSupportsPopups, isAndroid, isChrome, isIos, isIOS14, isSafari, isSFVC, type Experiment, isDevice, isTablet, getElement, isLocalStorageEnabled, isStandAlone, once } from '@krakenjs/belter/src';
-import { COUNTRY, CURRENCY, ENV, FUNDING, type LocaleType } from '@paypal/sdk-constants/src';
-import { getEnableFunding, getDisableFunding, getLogger, createExperiment, getFundingEligibility, getPlatform, getComponents, getEnv, type FundingEligibilityType } from '@paypal/sdk-client/src';
+import { CURRENCY, ENV, FUNDING } from '@paypal/sdk-constants/src';
+import { getEnableFunding, getLogger, createExperiment, getFundingEligibility, getPlatform, getComponents, getEnv, type FundingEligibilityType } from '@paypal/sdk-client/src';
 import { getRefinedFundingEligibility } from '@paypal/funding-components/src';
 
 import type { Experiment as EligibilityExperiment } from '../../types';
@@ -126,39 +126,6 @@ export function getVenmoExperiment() : EligibilityExperiment {
     }
 }
 
-export function createNoPaylaterExperiment(fundingSource : ?$Values<typeof FUNDING>) : Experiment | void {
-    const disableFunding = getDisableFunding();
-    const isDisableFundingPaylater = disableFunding && disableFunding.indexOf(FUNDING.PAYLATER) !== -1;
-    const enableFunding = getEnableFunding();
-    const isEnableFundingPaylater = enableFunding && enableFunding.indexOf(FUNDING.PAYLATER) !== -1;
-
-    const { paylater } = getFundingEligibility();
-    const isEligibleForPaylater = paylater?.eligible;
-    const isExperimentable = paylater?.products?.paylater?.variant === 'experimentable' || paylater?.products?.payIn4?.variant === 'experimentable';
-    // No experiment because ineligible, already forced on or off
-    if (!isEligibleForPaylater
-        || !isExperimentable
-        || isDisableFundingPaylater
-        || isEnableFundingPaylater
-        || fundingSource
-    ) {
-        return;
-    }
-
-    return createExperiment('disable_paylater', 0);
-}
-
-export function getNoPaylaterExperiment(fundingSource : ?$Values<typeof FUNDING>) : EligibilityExperiment {
-    const experiment = createNoPaylaterExperiment(fundingSource);
-
-    const disableFunding = getDisableFunding();
-    const isDisableFundingPaylater = disableFunding && disableFunding.indexOf(FUNDING.PAYLATER) !== -1;
-    const isExperimentEnabled = experiment && experiment.isEnabled();
-    return {
-        disablePaylater: Boolean((isExperimentEnabled || isDisableFundingPaylater))
-    };
-}
-
 export function getVenmoAppLabelExperiment() : EligibilityExperiment  {
     const isEnvForTest = getEnv() === ENV.LOCAL || getEnv() === ENV.TEST || getEnv() === ENV.STAGE;
 
@@ -225,11 +192,11 @@ export function applePaySession() : ?ApplePaySessionConfigRequest {
                 listeners.paymentauthorized({ payment });
             };
 
-            // eslint-disable-next-line unicorn/prefer-add-event-listener
+            // eslint-disable-next-line  unicorn/prefer-add-event-listener
             session.oncancel = () => {
-                listeners.cancel();
+                listeners.oncancel();
             };
-
+                        
             return {
                 addEventListener: (name, handler) => {
                     listeners[name] = handler;
@@ -251,7 +218,8 @@ export function applePaySession() : ?ApplePaySessionConfigRequest {
                     const newUpdate = convertErrorsFromUpdate(update);
                     session.completePayment(newUpdate);
                 },
-                begin: () => session.begin()
+                begin: () => session.begin(),
+                abort: () => session.abort()
             };
         };
     } catch (e) {
@@ -259,10 +227,9 @@ export function applePaySession() : ?ApplePaySessionConfigRequest {
     }
 }
 
-export function getButtonExperiments (fundingSource : ?$Values<typeof FUNDING>) : EligibilityExperiment {
+export function getButtonExperiments () : EligibilityExperiment {
     return {
         ...getVenmoExperiment(),
-        ...getNoPaylaterExperiment(fundingSource),
         ...getVenmoAppLabelExperiment()
     };
 }
@@ -327,17 +294,23 @@ type InlineCheckoutEligibilityProps = {|
     disableFunding : $ReadOnlyArray<$Values<typeof FUNDING>>,
     fundingEligibility : FundingEligibilityType,
     layout : $Values<typeof BUTTON_LAYOUT>,
-    locale : LocaleType,
     merchantID? : $ReadOnlyArray<string>,
-    onComplete? : Function,
+    onComplete : Function,
+    custom? : ?{|
+        css? : {|
+            [string] : string
+        |},
+        label? : string
+    |},
     vault : boolean
 |};
 
 export function isInlineXOEligible({ props } : {| props : InlineCheckoutEligibilityProps |}) : boolean {
-    const { commit, currency, createBillingAgreement, disableFunding, fundingEligibility, layout, locale, vault } = props;
+    const { commit, currency, custom, createBillingAgreement, disableFunding, fundingEligibility, layout, onComplete, vault } = props;
 
     const isEligible = (
-        locale.country === COUNTRY.US &&
+        custom?.label && custom.label.length > 0,
+        onComplete &&
         commit === true &&
         !createBillingAgreement &&
         currency === CURRENCY.USD &&

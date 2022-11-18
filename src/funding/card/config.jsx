@@ -124,7 +124,13 @@ export function getCardConfig() : FundingSourceConfig {
         Label: ({ logo, locale, content, custom }) => {
             if (custom && custom.label && custom.label.length) {
                 const validLabels = {
-                    checkout: 'Checkout'
+                    buy:                    'Buy',
+                    checkout:               'Checkout',
+                    pay:                    'Pay',
+                    'buy now':              'Buy Now',
+                    'pay now':              'Pay Now',
+                    'checkout now':         'Checkout Now',
+                    'proceed to checkout':  'Proceed to checkout'
                 };
 
                 let label = validLabels.checkout;
@@ -164,10 +170,14 @@ export function getCardConfig() : FundingSourceConfig {
 
         WalletLabel,
 
-        showWalletMenu: ({ instrument }) => {
+        showWalletMenu: ({ instrument, userIDToken }) => {
             if (instrument.branded) {
                 return false;
             } else {
+                if (!instrument.tokenID?.match(/-/) && userIDToken) {
+                    return false
+                }
+
                 return true;
             }
         }

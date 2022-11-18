@@ -777,6 +777,13 @@ const buttonConfigs = [
 
             {
                 layout: `vertical`,
+                label:  `satispay`,
+                commit: true,
+                valid:  false
+            },
+
+            {
+                layout: `vertical`,
                 label:  `paidy`,
                 commit: true,
                 valid:  false

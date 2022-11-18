@@ -1,3 +1,93 @@
+## <small>5.0.244 (2022-11-09)</small>
+
+* Disable vaulted card menu for token type (#2029) ([0b2c88a](https://github.com/paypal/paypal-checkout-components/commit/0b2c88a)), closes [#2029](https://github.com/paypal/paypal-checkout-components/issues/2029)
+
+
+
+## <small>5.0.243 (2022-11-09)</small>
+
+* feat: add new funding source satispay (#2020) ([efe0df2](https://github.com/paypal/paypal-checkout-components/commit/efe0df2)), closes [#2020](https://github.com/paypal/paypal-checkout-components/issues/2020)
+
+
+
+## <small>5.0.242 (2022-11-09)</small>
+
+* feat: add new prop for passing hostname to fraudnet (#2028) ([c244835](https://github.com/paypal/paypal-checkout-components/commit/c244835)), closes [#2028](https://github.com/paypal/paypal-checkout-components/issues/2028)
+
+
+
+## <small>5.0.241 (2022-10-26)</small>
+
+* chore(release): 5.0.240 🎉 ([1b80daf](https://github.com/paypal/paypal-checkout-components/commit/1b80daf))
+
+
+
+## <small>5.0.240 (2022-10-26)</small>
+
+* chore(release): 5.0.239 🎉 ([9c0c083](https://github.com/paypal/paypal-checkout-components/commit/9c0c083))
+
+
+
+## <small>5.0.239 (2022-10-12)</small>
+
+* chore(release): 5.0.238 🎉 ([d3a9162](https://github.com/paypal/paypal-checkout-components/commit/d3a9162))
+
+
+
+## <small>5.0.238 (2022-10-03)</small>
+
+* Update APM buttons with new default colors (#1989) ([82777ad](https://github.com/paypal/paypal-checkout-components/commit/82777ad)), closes [#1989](https://github.com/paypal/paypal-checkout-components/issues/1989)
+
+
+
+## <small>5.0.237 (2022-09-14)</small>
+
+* Inline payment-fields (#1944) ([c380539](https://github.com/paypal/paypal-checkout-components/commit/c380539)), closes [#1944](https://github.com/paypal/paypal-checkout-components/issues/1944)
+
+
+
+## <small>5.0.236 (2022-09-08)</small>
+
+* AcceleratedXO: Change experience name for merchant (#2002) ([6a2c6dd](https://github.com/paypal/paypal-checkout-components/commit/6a2c6dd)), closes [#2002](https://github.com/paypal/paypal-checkout-components/issues/2002)
+
+
+
+## <small>5.0.235 (2022-08-17)</small>
+
+* Enable smokeHash testing of Checkoutuinodeweb apps through the SDK (#1988) ([ad64456](https://github.com/paypal/paypal-checkout-components/commit/ad64456)), closes [#1988](https://github.com/paypal/paypal-checkout-components/issues/1988)
+
+
+
+## <small>5.0.234 (2022-08-08)</small>
+
+* oncancel (#1984) ([faef34a](https://github.com/paypal/paypal-checkout-components/commit/faef34a)), closes [#1984](https://github.com/paypal/paypal-checkout-components/issues/1984)
+
+
+
+## <small>5.0.233 (2022-07-26)</small>
+
+* feat: add paymentrequest prop (#1963) ([e1eb91e](https://github.com/paypal/paypal-checkout-components/commit/e1eb91e)), closes [#1963](https://github.com/paypal/paypal-checkout-components/issues/1963)
+
+
+
+## <small>5.0.232 (2022-07-20)</small>
+
+* Remove locale eligibility for Accelerated XO (#1974) ([068e175](https://github.com/paypal/paypal-checkout-components/commit/068e175)), closes [#1974](https://github.com/paypal/paypal-checkout-components/issues/1974)
+
+
+
+## <small>5.0.231 (2022-07-13)</small>
+
+* chore: upgrade to Node 16 (#1966) ([a829473](https://github.com/paypal/paypal-checkout-components/commit/a829473)), closes [#1966](https://github.com/paypal/paypal-checkout-components/issues/1966)
+
+
+
+## <small>5.0.230 (2022-07-06)</small>
+
+* chore: update minimum height for single name field (#1962) ([92d81aa](https://github.com/paypal/paypal-checkout-components/commit/92d81aa)), closes [#1962](https://github.com/paypal/paypal-checkout-components/issues/1962)
+
+
+
 ## <small>5.0.229 (2022-06-23)</small>
 
 * chore: remove Inline XO experiment (#1956) ([edc220d](https://github.com/paypal/paypal-checkout-components/commit/edc220d)), closes [#1956](https://github.com/paypal/paypal-checkout-components/issues/1956)

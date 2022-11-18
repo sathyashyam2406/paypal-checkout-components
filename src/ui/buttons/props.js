@@ -350,6 +350,7 @@ export type ApplePayPaymentAuthorizationResult = {|
 
 export type ApplePaySessionConfig = {|
     begin : () => void,
+    abort : () => void,
     addEventListener : (string, Function) => void,
     // eslint-disable-next-line flowtype/no-weak-types
     completeMerchantValidation : (validatedSession : any) => void,
@@ -428,6 +429,7 @@ export type ButtonProps = {|
     remember : ($ReadOnlyArray<$Values<typeof FUNDING>>) => void,
     clientID : string,
     sessionID : string,
+    buttonLocation : string,
     buttonSessionID : string,
     onShippingChange : ?OnShippingChange,
     onShippingAddressChange : ?OnShippingAddressChange,

@@ -1,24 +1,26 @@
 /* @flow */
 /** @jsx node */
 
-import { SofortLogo } from '@paypal/sdk-logos/src';
+import { SatispayLogo } from '@paypal/sdk-logos/src';
 import { Fragment, node } from '@krakenjs/jsx-pragmatic/src';
 
 import { BUTTON_LAYOUT } from '../../constants';
 import { DEFAULT_APM_FUNDING_CONFIG, type FundingSourceConfig, BasicLabel } from '../common';
 import { Text, Space } from '../../ui/text';
 
-export function getSofortConfig() : FundingSourceConfig {
+export function getSatispayConfig() : FundingSourceConfig {
     return {
         ...DEFAULT_APM_FUNDING_CONFIG,
 
-        shippingChange: false,
+        automatic: false,
 
+        shippingChange: false,
+    
         layouts: [
             BUTTON_LAYOUT.VERTICAL
         ],
     
-        Logo: ({ logoColor, optional }) => SofortLogo({ logoColor, optional }),
+        Logo: ({ logoColor, optional }) => SatispayLogo({ logoColor, optional }),
 
         Label: ({ logo, ...opts }) => {
             if (__WEB__) {
@@ -27,7 +29,7 @@ export function getSofortConfig() : FundingSourceConfig {
 
             const apmLogo = (
                 <Fragment>
-                    { logo }<Space /><Text animate optional>SOFORT</Text>
+                    { logo }<Space /><Text animate optional>Satispay</Text>
                 </Fragment>
             );
 
